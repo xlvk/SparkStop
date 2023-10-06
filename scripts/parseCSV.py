@@ -1,9 +1,8 @@
 import pandas as pd
-import json
 
-df = pd.read_csv("../data/RawData.csv")
+df = pd.read_csv("../data/csv/VIIRS.csv")
 
 json_data = df.to_json(orient="records")
 
-with open("../data/mainData.json", "w") as f:
+with open("../data/json/VIIRS.json", "w") as f:
     f.write(json_data)

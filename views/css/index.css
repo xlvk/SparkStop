@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100&display=swap");
+
+root {
+  --dark: #111;
+  --light: #ffffff;
+}
+
+body,
+html {
+  margin: 0;
+  height: 100%;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+.dark-mode {
+  background-color: black;
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  ;
+  color: var(--light);
+}
+
+.container-input {
+  position: relative;
+}
+
+.input {
+  width: 150px;
+  padding: 10px 0px 10px 40px;
+  border-radius: 9999px;
+  border: solid 1px #333;
+  transition: all .2s ease-in-out;
+  outline: none;
+  opacity: 0.8;
+}
+
+.container-input svg {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(0, -50%);
+}
+
+.input:focus {
+  opacity: 1;
+  width: 250px;
+}
+
+header {
+  height: 8vh;
+  /* background-color: hsla(220, 5%, 12%, 0.5); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  height: 84vh;
+  background-color: rgb(85, 111, 148);
+}
+
+footer {
+  height: 8vh;
+<<<<<<< HEAD
+  /* background-color: hsla(220, 5%, 12%, 0.5); */
+=======
+  background-color: hsla(220, 5%, 12%, 0.5);
+>>>>>>> 8576658c958446542ba869b40f3128706a2f7c6a
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* z-index: auto; */
+}
+
+.layermenu {
+  margin-bottom: 1em;
+  border-radius: 100px;
+  width: 8em;
+  height: 4em;
+  border: 0;
+  background-color: hsla(240, 4%, 19%, 0.5);
+  color: white;
+  cursor: pointer;
+  font-family: "IBM Plex Mono", sans-serif;
+  transition-duration: 0.3s;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.layermenu:hover {
+  background-color: hsla(240, 4%, 19%, 1);
+}
+
+/* To hide the checkbox */
+#checkboxInput {
+  display: none;
+}
+
+.toggleSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 50px;
+  height: 30px;
+  background-color: rgb(82, 82, 82);
+  border-radius: 20px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+<<<<<<< HEAD
+  margin-right: 1em;
+=======
+  margin-right: 2.5em;
+  margin-bottom: 1.5em;
+>>>>>>> 8576658c958446542ba869b40f3128706a2f7c6a
+}
+
+.toggleSwitch::after {
+  content: "";
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  left: 5px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition-duration: 0.2s;
+  box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+  border: 5px solid white;
+}
+
+#checkboxInput:checked+.toggleSwitch::after {
+  transform: translateX(100%);
+  transition-duration: 0.2s;
+  background-color: white;
+}
+
+/* Switch background change */
+#checkboxInput:checked+.toggleSwitch {
+  background-color: rgb(148, 118, 255);
+  transition-duration: 0.2s;
+}
+
+.subnav-content {
+  display: flex;
+  gap: 12px;
+  margin-left: 1.5em;
+  margin-bottom: 2em;
+}
+
+.subnav-btn {
+  text-decoration: none;
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "IBM Plex Mono", sans-serif;
+  transition-duration: 0.3s;
+}
+
+.subnav-btn:hover {
+  color: #373535;
+}
+<<<<<<< HEAD
+
+#map {
+  height: 84vh;
+}
+
+.mapdiv {
+  height: 4vh;
+  background-color: hsla(0, 4%, 27%, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2em;
+}
+
+.mapprov {
+  font-family: 'IBM Plex Mono', sans-serif;
+  margin-left: 1em;
+  font-weight: bold;
+  color: aliceblue;
+}
+=======
+>>>>>>> 8576658c958446542ba869b40f3128706a2f7c6a
