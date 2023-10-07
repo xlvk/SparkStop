@@ -24,3 +24,5 @@ TestResults.xml
 *.json
 #CSV files
 *.csv
+#Node js modules
+node_modules/
