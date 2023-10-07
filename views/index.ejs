@@ -102,7 +102,44 @@
 
           // Add the default tile layer (OpenStreetMap)
           mapProviders.openstreetmap.addTo(map);
+          function calculateArrowCoordinates(latitude, longitude, windDirection, windSpeed) {
+            // Convert wind direction from degrees to radians
+            var windDirectionRadians = (windDirection - 90) * (Math.PI / 180);
 
+            // Calculate the coordinates of the arrow polygon
+            var arrowLength = windSpeed * 0.01; // Adjust this multiplier for arrow length
+            var arrowWidth = 0.02; // Adjust this value for arrow width
+
+            var arrowCoordinates = [
+              [latitude, longitude],
+              [
+                latitude + arrowLength * Math.cos(windDirectionRadians),
+                longitude + arrowLength * Math.sin(windDirectionRadians),
+              ],
+            ];
+
+            // Add arrowhead vertices
+            var arrowheadLength = 0.02; // Adjust this value for arrowhead length
+            var arrowheadAngle = Math.PI / 6; // Adjust this value for arrowhead angle
+
+            arrowCoordinates.push([
+              latitude +
+              (arrowLength - arrowheadLength) * Math.cos(windDirectionRadians + arrowheadAngle),
+              longitude +
+              (arrowLength - arrowheadLength) * Math.sin(windDirectionRadians + arrowheadAngle),
+            ]);
+            arrowCoordinates.push([latitude, longitude]);
+            arrowCoordinates.push([
+              latitude +
+              (arrowLength - arrowheadLength) * Math.cos(windDirectionRadians - arrowheadAngle),
+              longitude +
+              (arrowLength - arrowheadLength) * Math.sin(windDirectionRadians - arrowheadAngle),
+            ]);
+            arrowCoordinates.push([latitude, longitude]);
+
+            return arrowCoordinates;
+          }
+          1
 
           // fetch json
           const jsonPaths = ['../data/json/AUSdata.json', '../data/json/VIIRS.json', '../data/json/BRAdata.json', '../data/json/train.json']
@@ -118,13 +155,32 @@
                     const longitude = obj.longitude;
                     const latitude = obj.latitude;
                     const wind_direction_num = obj.wind_direction_num;
-                    const wind_speed = obj.wind_speed;
+                    const wind_speed = obj.windspeed;
                     const fire_size = obj.fire_size;
                     const fire_spread = obj.fire_spread;
                     console.log(longitude + " " + latitude);
                     if (longitude != undefined && latitude != undefined) {
                       // marker
                       var marker = L.marker([latitude, longitude]).addTo(map);
+
+                      if (wind_direction_num != null && wind_speed != null) {
+                        console.log(wind_direction_num + " " + wind_speed);
+                        // Calculate arrow coordinates
+                        const arrowCoordinates = calculateArrowCoordinates(
+                          latitude,
+                          longitude,
+                          wind_direction_num,
+                          wind_speed
+                        );
+                        // Create a polygon using arrow coordinates
+                        var arrowPolygon = L.polygon(arrowCoordinates, {
+                          color: 'red', // Adjust arrow color as needed
+                          // fillColor: 'red', // Adjust arrow color as needed
+                          // fillOpacity: 1,
+
+
+                        }).addTo(map);
+                      }
 
                       heat.addLatLng([latitude, longitude, fire_size * 4]);
                     }
@@ -137,7 +193,7 @@
           });
 
 
-          
+
 
           var heat = L.heatLayer([
             // get all latitude and longitude from train.json

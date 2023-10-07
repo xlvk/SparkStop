@@ -21,8 +21,8 @@ rad.json
 #Test results file
 TestResults.xml
 #JSON files
-*.json
+# *.json
 #CSV files
-*.csv
+# *.csv
 #Node js modules
 node_modules/
