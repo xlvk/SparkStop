@@ -1,318 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SparkStop</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style src="style.css"></style>
+  <title>FireOwl</title>
 </head>
 
-<style>
-/* Reset default margin and padding */
-body, h1, h2, p {
-  margin: 0;
-  padding: 0;
-  background-color:rgb(0, 0, 0);
-  color:rgb(255, 255, 255);
-}
-
-/* Style for header */
-header {
-  background-color: rgb(26, 26, 26);
-  color: rgb(0, 0, 0);
-  padding: 20px;
-}
-
-nav ul {
-  list-style-type: none;
-}
-
-nav ul li {
-  display: inline;
-  margin-right: 20apx;
-}
-
-nav ul li a {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-}
-
-/* Style for main content */
-main {
-  padding: 20px;
-}
-
-section {
-  margin-bottom: 40px;
-}
-
-/* Style for footer */
-footer {
-  background-color: rgb(127, 127, 127);
-  color: rgb(0, 0, 0);
-  padding: 20px;
-  text-align: center;
-}
-.squareuuu {
-            width: 950px;
-            height: 200px;
-            background-color: rgba(8, 0, 255, 0.368);
-          }
-          .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: rgb(59, 0, 72);
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #acd9ff6b;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #bae0ff50;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-  ul{
-padding: 0;
-  margin: 0 auto;
-  list-style: none;
-}
-ul li {
-list-style: none;
-
-}
-a,a:hover,a:active,a:focus {
-display:inline-block;
-text-decoration:none;
-color: #6a708e;
-font-size:16px;
-padding:0;
-}
-
-#searchBarContainer {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-#searchBarContainer input {
-  margin-right: 5px;
-}
-
-#searchSubmit {
-  padding: 5px 10px;
-}
-
-#down {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 20px;
-  background-color: rgb(26, 26, 26);
-  color: rgb(0, 0, 0);
-}
-
-#round-button {
-  border-radius: 50%;
-  padding: 10px;
-  border: none;
-}
-.button-container {
-  margin-right: 20px;
-}
-
-.round-button {
-  border-radius: 50%;
-  padding: 10px;
-  border: none;
-}
-
-.toggle-container {
-  margin-right: 20px;
-}
-
-.slider {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-</style>
 <body>
-  <header class="top-area">
-    <div class="header-area">
-      <!-- Start Navigation -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">SparkStop</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home.</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Home Menu.<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#HomeSpace">Home</a></li>
-            <li><a href="Device.ejs">Our Device.</a></li>
-            <li><a href="Chart.ejs">Chart Explanation.</a></li>
-            <li><a href="Guides.ejs">Guides.</a></li>
-              </ul>
-              <button class="btn btn-danger navbar-btn">My Location.</button>
-              <button id="searchButton" class="btn btn-danger navbar-btn">Choose Another Location.</button>
-              <div id="searchBarContainer"  style="display: none;">
-                  <input type="text" id="searchInput" placeholder="Enter your Wanted Location Here.">
-                      <button id="searchSubmit" class="btn btn-default" >Search</button>
-                      </div>
-              <!-- <button class="btn btn-danger navbar-btn">Choose Another Location.</button> -->
-              <!-- <li><a href="#">My Location.</a></li>
-              <li><a href="#">Choose Your Location.</a></li> -->
-            </li>
-          </ul>
+  <header>
+    <nav class="navbar navbar-default" id="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SparkStop</a>
         </div>
-      </nav>  
-      <!-- End Navigation -->
-    </div><!--/.header-area-->
-      <div class="clearfix"></div>
-  </header><!-- /.top-area-->
-
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home.</a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Home Menu.<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a>Home</a></li>
+              <li><a href="Device.ejs">Our Device.</a></li>
+              <li><a href="Chart.ejs">Chart Explanation.</a></li>
+              <li><a href="Guides.ejs">Guides.</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="container-input">
+          <input type="text" placeholder="Search" name="text" class="input">
+          <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z"
+              fill-rule="evenodd"></path>
+          </svg>
+        </div>
+      </div>
+    </nav> 
+  </header>
   <main>
-    <!-- <section id="home">
-      <h1>Welcome to the Space Website</h1>
-    </section>
+    <div id="map"></div>
 
-    <section id="galaxy">
-      <h2>Exploring the Galaxy</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est augue, efficitur et leo a, rutrum pretium lectus.</p>
-    </section>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-    <section id="planets">
-      <h2>Discover the Planets</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est augue, efficitur et leo a, rutrum pretium lectus.</p>
-    </section>
+    <script>
+      // Create a map centered at a specific location and zoom level
+      var map = L.map('map').setView([26.0667, 50.5577], 3);
 
-    <section id="asteroids">
-      <h2>Unveiling the Asteroids</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est augue, efficitur et leo a, rutrum pretium lectus.</p>
-    </section>
+      // Define tile layers for various map providers
+      var mapProviders = {
+        openstreetmap: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+        }),
+        mapbox: L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=YOUR_MAPBOX_ACCESS_TOKEN', {
+          maxZoom: 19,
+          id: 'mapbox/streets-v11', // Change this to your desired Mapbox style
+        }),
+        bing: L.tileLayer('https://tiles.bing.com:443/comp/ch/{q}?mkt=en&it=A,G,RL&shading=hill', {
+          maxZoom: 19,
+          attribution: '© 2023 Microsoft',
+          subdomains: ['t0', 't1', 't2', 't3'],
+        }),
+        here: L.tileLayer('https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/{style}/{z}/{x}/{y}/256/png8?apiKey=YOUR_HERE_API_KEY', {
+          maxZoom: 19,
+          style: 'normal.day',
+        }),
+        mapquest: L.tileLayer('https://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', {
+          maxZoom: 19,
+          subdomains: '1234',
+        }),
+        tomtom: L.tileLayer('https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=YOUR_TOMTOM_API_KEY', {
+          maxZoom: 19,
+        }),
+        esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: '© Esri',
+        }),
+        thunderforest: L.tileLayer('https://{s}.tile.thunderforest.com/{style}/{z}/{x}/{y}.png?apikey=YOUR_THUNDERFOREST_API_KEY', {
+          maxZoom: 19,
+          style: 'cycle',
+        }),
+        cartodb: L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+        }),
+        stadia: L.tileLayer('https://{s}.tile.stadia.maps.yourserver.com/basic/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+        }),
+        maptiler: L.tileLayer('https://api.maptiler.com/maps/{style}/{z}/{x}/{y}.png?key=YOUR_MAPTILER_API_KEY', {
+          maxZoom: 19,
+          style: 'basic',
+        }),
+      };
 
-    <section id="stars">
-      <h2>Stargazing</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est augue, efficitur et leo a, rutrum pretium lectus.</p>
-    </section> -->
+      // Add the default tile layer (OpenStreetMap)
+      mapProviders.openstreetmap.addTo(map);
+
+      // fetch json
+      const jsonPaths = ['../data/json/AUSdata.json', '../data/json/VIIRS.json', '../data/json/BRAdata.json']
+
+      jsonPaths.forEach(element => {
+        fetch(element)
+          .then(response => response.json())
+          .then(data => {
+            // Check if data is an array
+            if (Array.isArray(data)) {
+              const limitdata = data.slice(0, 300)
+              limitdata.forEach((obj, index) => {
+                const longitude = obj.longitude;
+                const latitude = obj.latitude;
+                console.log(longitude + " " + latitude);
+                if (longitude != undefined && latitude != undefined) {
+                  var marker = L.marker([latitude, longitude]).addTo(map);
+                }
+              });
+            } else {
+              console.error('JSON data is not an array.');
+            }
+          })
+          .catch(error => console.error('Error fetching JSON:', error));
+      });
+
+
+      // // Function to change the map provider based on the selected option
+      // document.getElementById('mapProvider').addEventListener('change', function () {
+      //   var selectedProvider = this.value;
+      //   map.eachLayer(function (layer) {
+      //     map.removeLayer(layer);
+      //   });
+      //   mapProviders[selectedProvider].addTo(map);
+      //   // Loop through the locations and add markers to the map
+      //   for (var i = 0; i < locations.length; i++) {
+      //     var locatio = locations[i];
+      //     var marker = L.marker([locatio.lat, locatio.lon]).addTo(map);
+      //     marker.bindPopup(locatio.name);
+      //   }
+
+      // });
+
+
+      // Loop through the locations and add markers to the map
+      // for (var i = 0; i < locations.length; i++) {
+      //   var locatio = locations[i];
+      //   var marker = L.marker([locatio.lat, locatio.lon]).addTo(map);
+      //   marker.bindPopup(locatio.name);
+      // }
+    </script>
   </main>
-
-  <footer id="down">
-    <!-- <p>//////////</p> -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- <div class="button-container">
-      <button class="round-button">.....</button>
-      <button class="round-button">.....</button>
-    </div> -->
-    <p>Dark Mode.</p>
-    <div class="toggle-container">
-      <label class="switch">
-        <input type="checkbox" id="myToggleButton">
-        <span class="slider round"></span>
-      </label>
-    </div>
-    
-    <!-- <div class="toggle-container">
-      <label class="switch">
-        <input type="checkbox" id="myToggleButton">
-        <span class="slider round"></span>
-      </label>
-    </div> -->
-    <p>Charts.</p>
-    <div class="toggle-container">
-      <label class="switch">
-        <input type="checkbox" id="myToggleButton">
-        <span class="slider round"></span>
-      </label>
-    </div>
+  <footer>
+    <button class="layermenu">Layers</button>
+    <input type="checkbox" id="checkboxInput">
+    <label for="checkboxInput" onclick="myFunction()" class="toggleSwitch"></label>
+    <script>
+      function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      }
+    </script>
   </footer>
-
-  <script src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
 </html>
-
-
-<!-- <div class="container">
-  <label class="switch">
-    <input type="checkbox" id="myToggleButton">
-    <span class="slider round"></span>
-  </label>
-</div>
-
-<script>
-  var myToggleButton = document.getElementById("myToggleButton");
-  
-  myToggleButton.addEventListener("change", function() {
-    if (myToggleButton.checked) {
-      // Perform actions when the button is turned ON
-      console.log("My Button is ON");
-    } else {
-      // Perform actions when the button is turned OFF
-      console.log("My Button is OFF");
-    }
-  });
-</script> -->

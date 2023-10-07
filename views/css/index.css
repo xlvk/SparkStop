@@ -25,6 +25,8 @@ body::-webkit-scrollbar {
 
 .container-input {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .input {
@@ -112,6 +114,10 @@ footer {
   cursor: pointer;
   transition-duration: 0.2s;
   margin-right: 1em;
+  position: absolute;
+  right: 1em;
+  bottom: 1.5em;
+  
 }
 
 .toggleSwitch::after {
@@ -197,4 +203,8 @@ footer {
   margin-left: 1em;
   font-weight: bold;
   color: aliceblue;
+}
+
+#navigation > div {
+  display: flex;
 }
