@@ -1,0 +1,60 @@
+@import '../fonts/fonts.css';
+
+/* 
+    Allow adding a border to an element by just adding a border-width. (https: //github.com/tailwindcss/tailwindcss/pull/116)
+    // by default this get loaded from preflight setting (reset css), 
+    // but we need to set this to false as this overrides external sites that content is loaded to
+*/
+[class^='wt-'],
+[class*=' wt-'] {
+  border-width: 0;
+  border-style: solid;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .wt-rewrite-card .wt-menu-item,
+  .wt-rewrite-card .wt-dropdown button {
+    @apply wt-capitalize;
+  }
+
+  .wt-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .wt-scrollbar::-webkit-scrollbar-button {
+    width: 8px;
+    height: 8px;
+  }
+  .wt-scrollbar::-webkit-scrollbar-thumb {
+    background: #f2f2f2;
+    border: 0px solid #ffffff;
+    border-radius: 50px;
+  }
+  .wt-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #e6e6e6;
+  }
+  .wt-scrollbar::-webkit-scrollbar-thumb:active {
+    background: #e6e6e6;
+  }
+  .wt-scrollbar::-webkit-scrollbar-track {
+    background: white;
+    border: 28px none #75498d;
+    border-radius: 8px;
+  }
+  .wt-scrollbar::-webkit-scrollbar-track:hover {
+    background: white;
+  }
+  .wt-scrollbar::-webkit-scrollbar-track:active {
+    background: #f2f2f2;
+  }
+  .wt-scrollbar::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  a.wt-link:link {
+    @apply wt-text-bg-neutral-primary-default;
+  }
+}
