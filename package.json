@@ -16,7 +16,8 @@
     "express": "^4.18.2",
     "fullpage.js": "^4.0.20",
     "heatmap.js": "^2.0.5",
-    "leaflet.heat": "^0.2.0"
+    "leaflet.heat": "^0.2.0",
+    "three": "^0.157.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
