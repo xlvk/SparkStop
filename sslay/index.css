@@ -52,12 +52,25 @@ body::-webkit-scrollbar {
 }
 
 header {
-  height: 8vh;
+  height: 16vh;
   /* background-color: hsla(220, 5%, 12%, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;
   justify-content: center;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 20px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* background-color: #f1f1f1; */
+  padding: 20px;
+  z-index: 999;
 }
 
 main {
@@ -68,7 +81,7 @@ main {
 }
 
 footer {
-  height: 8vh;
+  /* height: 8vh; */
   /* background-color: hsla(220, 5%, 12%, 0.5); */
   display: flex;
   justify-content: space-between;
@@ -207,4 +220,17 @@ footer {
 
 #navigation > div {
   display: flex;
+}
+
+/* header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 20px;
+} */
+
+.content {
+  margin-top: 80px; /* Adjust this value to leave space for the fixed header */
 }

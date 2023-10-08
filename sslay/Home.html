@@ -6,6 +6,9 @@
     <meta name="description" content="">
     <title>Home</title>
     <link rel="stylesheet" href="Home/nicepage.css" media="screen">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="Home/nicepage-site.css" media="screen">
 <link rel="stylesheet" href="Home.css" media="screen">
     <script class="u-script" type="text/javascript" src="Home/jquery-3.5.1.min.js" defer=""></script>
@@ -29,7 +32,7 @@
     <meta property="og:type" content="website">
   </head>
   <body data-home-page="Home.html" data-home-page-title="Home" data-path-to-root="/" class="u-body u-palette-1-base u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-palette-5-dark-1 u-header" id="sec-8b5e"><div class="u-clearfix u-sheet u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500">
+        <a href="u-clearfix u-white u-section-2" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500">
           <img src="Home/images/4EE01904-C541-4856-9299-C93E62D282EE-removebg-preview.png" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
@@ -64,7 +67,7 @@
           </div>
         </nav>
       </div></header>
-    <section class="u-clearfix u-grey-10 u-valign-middle-md u-section-1" id="carousel_2abf">
+    <section class="u-clearfix u-grey-10 u-valign-middle-md u-section-1" id="carousel_2abf" class="content">
       <div class="data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-row">
@@ -75,18 +78,121 @@
               <div class="u-container-layout u-container-layout-2">
                 <h2 class="u-align-left u-text u-text-palette-5-dark-3 u-text-1"> SparkStop</h2>
                 <p class="u-text u-text-default u-text-palette-5-dark-1 u-text-2"> Managing Fire: Increasing Community-based Fire Management Opportunities</p>
-                <a href="https://nicepage.one" class="u-active-white u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-white u-palette-5-dark-3 u-radius-50 u-text-active-black u-text-hover-black u-btn-1">start</a>
+                <a href="#content" class="u-active-white u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-white u-palette-5-dark-3 u-radius-50 u-text-active-black u-text-hover-black u-btn-1">start</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="u-clearfix u-white u-section-2" id="sec-00d1">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <!-- embedded the map page -->
-        <iframe src="../views/index.ejs" frameborder="0" style="width: 100%;height:800px"></iframe>
-      </div>
+    <section class="u-clearfix u-white u-section-2" id="sec-00d1" class="content">
+      <!-- <div class="u-clearfix u-sheet u-sheet-1"></div> -->
+      <div id="map"></div>
+
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  
+      <script>
+        // Create a map centered at a specific location and zoom level
+        var map = L.map('map').setView([26.0667, 50.5577], 3);
+  
+        // Define tile layers for various map providers
+        var mapProviders = {
+          openstreetmap: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+          }),
+          mapbox: L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=YOUR_MAPBOX_ACCESS_TOKEN', {
+            maxZoom: 19,
+            id: 'mapbox/streets-v11', // Change this to your desired Mapbox style
+          }),
+          bing: L.tileLayer('https://tiles.bing.com:443/comp/ch/{q}?mkt=en&it=A,G,RL&shading=hill', {
+            maxZoom: 19,
+            attribution: '© 2023 Microsoft',
+            subdomains: ['t0', 't1', 't2', 't3'],
+          }),
+          here: L.tileLayer('https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/{style}/{z}/{x}/{y}/256/png8?apiKey=YOUR_HERE_API_KEY', {
+            maxZoom: 19,
+            style: 'normal.day',
+          }),
+          mapquest: L.tileLayer('https://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', {
+            maxZoom: 19,
+            subdomains: '1234',
+          }),
+          tomtom: L.tileLayer('https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=YOUR_TOMTOM_API_KEY', {
+            maxZoom: 19,
+          }),
+          esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: '© Esri',
+          }),
+          thunderforest: L.tileLayer('https://{s}.tile.thunderforest.com/{style}/{z}/{x}/{y}.png?apikey=YOUR_THUNDERFOREST_API_KEY', {
+            maxZoom: 19,
+            style: 'cycle',
+          }),
+          cartodb: L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+          }),
+          stadia: L.tileLayer('https://{s}.tile.stadia.maps.yourserver.com/basic/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+          }),
+          maptiler: L.tileLayer('https://api.maptiler.com/maps/{style}/{z}/{x}/{y}.png?key=YOUR_MAPTILER_API_KEY', {
+            maxZoom: 19,
+            style: 'basic',
+          }),
+        };
+  
+        // Add the default tile layer (OpenStreetMap)
+        mapProviders.openstreetmap.addTo(map);
+  
+        // fetch json
+        const jsonPaths = ['../data/json/AUSdata.json', '../data/json/VIIRS.json', '../data/json/BRAdata.json']
+  
+        jsonPaths.forEach(element => {
+          fetch(element)
+            .then(response => response.json())
+            .then(data => {
+              // Check if data is an array
+              if (Array.isArray(data)) {
+                const limitdata = data.slice(0, 300)
+                limitdata.forEach((obj, index) => {
+                  const longitude = obj.longitude;
+                  const latitude = obj.latitude;
+                  console.log(longitude + " " + latitude);
+                  if (longitude != undefined && latitude != undefined) {
+                    var marker = L.marker([latitude, longitude]).addTo(map);
+                  }
+                });
+              } else {
+                console.error('JSON data is not an array.');
+              }
+            })
+            .catch(error => console.error('Error fetching JSON:', error));
+        });
+  
+  
+        // // Function to change the map provider based on the selected option
+        // document.getElementById('mapProvider').addEventListener('change', function () {
+        //   var selectedProvider = this.value;
+        //   map.eachLayer(function (layer) {
+        //     map.removeLayer(layer);
+        //   });
+        //   mapProviders[selectedProvider].addTo(map);
+        //   // Loop through the locations and add markers to the map
+        //   for (var i = 0; i < locations.length; i++) {
+        //     var locatio = locations[i];
+        //     var marker = L.marker([locatio.lat, locatio.lon]).addTo(map);
+        //     marker.bindPopup(locatio.name);
+        //   }
+  
+        // });
+  
+  
+        // Loop through the locations and add markers to the map
+        // for (var i = 0; i < locations.length; i++) {
+        //   var locatio = locations[i];
+        //   var marker = L.marker([locatio.lat, locatio.lon]).addTo(map);
+        //   marker.bindPopup(locatio.name);
+        // }
+      </script>
     </section>
     <section class="u-clearfix u-image u-section-3" id="carousel_ddab" data-image-width="1920" data-image-height="1080">
       <div class="u-clearfix u-sheet u-sheet-1"><span class="u-file-icon u-icon u-icon-1"><img src="Home/images/2058658.png" alt=""></span>
@@ -129,18 +235,21 @@
     
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-d5dd"><div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">mariam is the best</p>
-      </div></footer>
+        <!-- <p class="u-small-text u-text u-text-variant u-text-1">mariam is the best</p> -->
+      </div>
+      <button class="layermenu">Layers</button>
+      <input type="checkbox" id="checkboxInput">
+      <label for="checkboxInput" onclick="myFunction()" class="toggleSwitch"></label>
+      <script>
+        function myFunction() {
+          var element = document.body;
+          element.classList.toggle("dark-mode");
+        }
+      </script>
+      </footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Templates</span>
-      </a>
-      <p class="u-text">
-        <span>created with</span>
-      </p>
-      <a class="u-link" href="" target="_blank">
-        <span>Website Builder Software</span>
-      </a>. 
-    </section>
-  
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      
 </body></html>
